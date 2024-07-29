@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="meet-common-api" />
+        <module name="meet-auth" />
+        <module name="meet-common-gateway" />
+        <module name="meet-common-auth" />
+        <module name="meet-message-api" />
+        <module name="meet-test" />
+        <module name="meet-admin-api" />
+        <module name="meet-message-biz" />
+        <module name="nacos-console" />
+        <module name="meet-admin-biz" />
+        <module name="sharding-jdbc-test2" />
+        <module name="sharding-jdbc-test1" />
+        <module name="meet-gateway" />
+        <module name="meet-kpl-biz" />
+        <module name="meet-elasticsearch" />
+        <module name="meet-common-pub" />
+        <module name="meet-nacos" />
+        <module name="meet-db-todu" />
+        <module name="meet-kpl-api" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

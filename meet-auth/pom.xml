@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>meet-boot</artifactId>
+        <groupId>com.meet</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>meet-auth</artifactId>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.meet</groupId>-->
+<!--            <artifactId>meet-admin-api</artifactId>-->
+<!--            <version>1.0-SNAPSHOT</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+
+        <dependency>
+            <groupId>com.meet</groupId>
+            <artifactId>meet-common-auth</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--注册中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!--配置中心客户端-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <!--alibaba在2020版之后不使用ribbon,这里使用loadbalancer代替,然后在配置文件中禁用ribbon-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+    </dependencies>
+
+<!--    <build>-->
+<!--        <resources>-->
+<!--            &lt;!&ndash; 该节点会扫描src/main/java目录，若该目录下有配置文件，则需要添加以下配置，保证文件能够被扫描和加载到 &ndash;&gt;-->
+<!--            <resource>-->
+<!--                <directory>src/main/java</directory>-->
+<!--                <includes>-->
+<!--                    &lt;!&ndash; 根据目录下的文件配置需要扫描的文件类型 &ndash;&gt;-->
+<!--                    <include>**/*.yml</include>-->
+<!--                    <include>**/*.properties</include>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                </includes>-->
+<!--                <filtering>false</filtering>-->
+<!--            </resource>-->
+<!--            &lt;!&ndash; 该节点会扫描src/main/resources，一般资源文件和配置文件会放在该目录下 &ndash;&gt;-->
+<!--            <resource>-->
+<!--                <directory>src/main/resources</directory>-->
+<!--                <includes>-->
+<!--                    &lt;!&ndash; 根据目录下的文件配置需要扫描的文件类型 &ndash;&gt;-->
+<!--                    <include>**/*.yml</include>-->
+<!--                    <include>**/*.properties</include>-->
+<!--                    <include>**/*.xml</include>-->
+<!--                </includes>-->
+<!--                <filtering>false</filtering>-->
+<!--            </resource>-->
+<!--        </resources>-->
+<!--    </build>-->
+
+</project>

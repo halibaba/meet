@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="central" />
+      <option name="url" value="https://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://repo.maven.apache.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="rdc-snapshots" />
+      <option name="name" value="rdc-snapshots" />
+      <option name="url" value="https://packages.aliyun.com/maven/repository/2299365-snapshot-dDAovn/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-releases" />
+      <option name="name" value="Project Releases Repositories" />
+      <option name="url" value="http://10.22.80.18:8081/nexus/content/repositories/releases/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-yfb-nexus" />
+      <option name="name" value="hedu-yfb-nexus" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-yfb-nexus" />
+      <option name="name" value="yfb-nexu" />
+      <option name="url" value="http://10.22.80.18:8081/nexus/content/repositories/yfb-nexus/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/repositories/central/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-yfb-aliyun" />
+      <option name="name" value="aliyun nexus" />
+      <option name="url" value="http://10.22.80.18:8081/nexus/content/repositories/yfb-aliyun/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-snapshots" />
+      <option name="name" value="Project Snapshots Repositories" />
+      <option name="url" value="http://10.22.80.18:8081/nexus/content/repositories/snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="central" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-thirdparty" />
+      <option name="name" value="hedu-thirdparty" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="public" />
+      <option name="name" value="Sunline-public" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-releases" />
+      <option name="name" value="Sunline-Releases" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nexus" />
+      <option name="name" value="nexus" />
+      <option name="url" value="http://nexus.hepengju.cn:8081/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="public-snapshots" />
+      <option name="name" value="public-snapshots" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="hedu-snapshots" />
+      <option name="name" value="Sunline-Snapshots" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="rdc-releases" />
+      <option name="name" value="rdc-releases" />
+      <option name="url" value="https://packages.aliyun.com/maven/repository/2299365-release-H7ftEL/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Central Repository" />
+      <option name="url" value="https://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="alimaven" />
+      <option name="name" value="aliyun maven" />
+      <option name="url" value="http://maven.aliyun.com/nexus/content/groups/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="snapshots" />
+      <option name="name" value="snapshots" />
+      <option name="url" value="https://maven.aliyun.com/nexus/content/groups/public" />
+    </remote-repository>
+  </component>
+</project>

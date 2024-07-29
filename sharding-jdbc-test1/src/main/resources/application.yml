@@ -1,0 +1,48 @@
+server:
+  port: 4000
+
+spring:
+  application:
+    name: @artifactId@
+
+  shardingsphere:
+    datasource:
+      names: sh2021,sh2022
+
+      sh2021:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/sharding-jdbc-test1?autoReconnect=true&allowMultiQueries=true
+        username: root
+        password: 1234
+
+      sh2022:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://127.0.0.1:3306/sharding-jdbc-test2?autoReconnect=true&allowMultiQueries=true
+        username: root
+        password: 1234
+
+    sharding:
+      tables:
+        order:
+          actual-data-nodes: sh2021.order20210${1..4},sh2022.order20220${1..4}
+
+          database-strategy:
+            standard:
+              sharding-column: address_id
+              preciseAlgorithmClassName: com.meet.sharding.config.PreciseDatabaseShardingAlgorithm
+              rangeAlgorithmClassName: com.meet.sharding.config.RangeDatabaseShardingAlgorithm
+
+          table-strategy:
+            standard:
+              sharding-column: address_id
+              preciseAlgorithmClassName: com.meet.sharding.config.PreciseTableShardingAlgorithm
+              rangeAlgorithmClassName: com.meet.sharding.config.RangeTableShardingAlgorithm
+
+    props:
+      sql:
+        show: true
+
+  main:
+    allow-bean-definition-overriding: true
