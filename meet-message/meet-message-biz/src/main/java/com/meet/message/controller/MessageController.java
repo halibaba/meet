@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,6 +62,12 @@ public class MessageController {
 		kafkaTemplate.setProducerListener(producerListener);
 		kafkaTemplate.send(TOPIC_NAME,  "key", "test message send~");
 		Thread.sleep(1000);
+	}
+
+	@GetMapping("/testFeign")
+	@SneakyThrows
+	public void testFeign() {
+		System.out.println("111");
 	}
 
 

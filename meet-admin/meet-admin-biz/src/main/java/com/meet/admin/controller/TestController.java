@@ -1,6 +1,7 @@
 package com.meet.admin.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.meet.admin.feign.PaymentFeignService;
 import com.meet.feign.MtUserInfoClient;
 import com.meet.pub.entity.R;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -24,10 +25,14 @@ import java.io.InputStream;
 @RequestMapping("/test")
 public class TestController {
 
+    @Autowired
+    private PaymentFeignService paymentFeignService;
+
     @GetMapping("get1/{i}")
     public R queryPage(@PathVariable("i") Integer i){
         System.out.println("完成任务"+i);
         System.out.println("线程" + Thread.currentThread().getName() + " 执行异步任务：" + i);
+        paymentFeignService.testFeign();
         return R.ok();
     }
 
