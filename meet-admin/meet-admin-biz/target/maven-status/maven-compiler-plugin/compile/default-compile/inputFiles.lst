@@ -1,5 +1,6 @@
 /Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-biz/src/main/java/com/meet/admin/service/IMtUserInfoService.java
 /Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-biz/src/main/java/com/meet/admin/service/impl/MtUserExtendInfoServiceImpl.java
+/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-biz/src/main/java/com/meet/admin/feign/PaymentFeignService.java
 /Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-biz/src/main/java/com/meet/admin/controller/TestController.java
 /Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-biz/src/main/java/com/meet/admin/controller/MtUserExtendInfoController.java
 /Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-biz/src/main/java/com/meet/admin/mapper/MtUserExtendInfoMapper.java

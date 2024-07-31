@@ -44,4 +44,11 @@ public class TestController {
 
         return R.ok(1111);
     }
+
+    @GetMapping("getTest2")
+    public R getTest2(){
+        System.out.println(123456);;
+
+        return R.ok(1111);
+    }
 }
