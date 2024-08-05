@@ -106,10 +106,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.logout().logoutUrl("/logout")
+                        .logoutSuccessUrl("/oauth/index");
         httpSecurity.formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/test/index").permitAll()
+                .defaultSuccessUrl("/success.html").permitAll()
                 .and().authorizeRequests()
 //                .antMatchers("/oauth/index").permitAll()
 //                .antMatchers("/oauth/users").hasAuthority("ROLE_user")
