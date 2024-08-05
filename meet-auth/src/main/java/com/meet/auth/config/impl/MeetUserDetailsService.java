@@ -1,5 +1,6 @@
 package com.meet.auth.config.impl;
 
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,8 +22,8 @@ import java.util.List;
  * @author: MT
  * @create: 2022-12-05 16:45
  **/
-@Service("userDetailsServiceImpl")
-public class UserDetailsServiceImpl implements UserDetailsService {
+@Service("userDetailsService")
+public class MeetUserDetailsService implements UserDetailsService {
 
 //    private MtUserInfoClient mtUserInfoClient;
 
@@ -37,7 +38,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //        String userName = "test";
 //        //密码
 //        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//        String password = passwordEncoder.encode("test");
+//        String password = passwordEncoder.encode("1234");
 //        //权限对象
 //        List<GrantedAuthority> auths = AuthorityUtils.commaSeparatedStringToAuthorityList(userName);
 //        //org.springframework.security.core.userdetails.User
@@ -66,7 +67,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         auths.add(new GrantedAuthority() {
             @Override
             public String getAuthority() {
-                return "ROLE_user";
+                if(s.equals("zhangsan")){
+                    return "ROLE_user";
+                }else if(s.equals("lisi")){
+                    return "test_auth";
+                }
+                else {
+                    return "ROLE_admin";
+                }
+
 //                return "ROLE_admin";
 //                return "ROLE_test_sale";
 //                return "test_auth";
@@ -85,4 +94,20 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //        });
         return new User(s, new BCryptPasswordEncoder().encode("123456"), auths);
     }
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        // 从数据库中查找用户
+//        UserEntity userEntity = userRepository.findByUsername(username)
+//                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
+//
+//        // 将用户角色转换为 GrantedAuthority 列表
+//        List<GrantedAuthority> authorities = userEntity.getRoles().stream()
+//                .map(role -> new SimpleGrantedAuthority(role.getName()))
+//                .collect(Collectors.toList());
+//
+//        // 返回 UserDetails 对象
+//        return new User(userEntity.getUsername(), userEntity.getPassword(), userEntity.isEnabled(), true, true, true, authorities);
+//    }
+
 }

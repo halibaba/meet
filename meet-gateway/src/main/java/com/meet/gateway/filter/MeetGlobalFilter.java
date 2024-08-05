@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 /**
  * @program: meet-boot
  * @ClassName MyGlobalFilter
- * @description:
+ * @description: 全局过滤器
  * @author: MT
  * @create: 2024-07-31 22:32
  **/

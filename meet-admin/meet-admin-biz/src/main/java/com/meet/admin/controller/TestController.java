@@ -45,10 +45,17 @@ public class TestController {
         return R.ok(1111);
     }
 
-    @GetMapping("getTest2")
-    public R getTest2(){
+    @GetMapping("getTest001")
+    public R getTest001(){
         System.out.println(123456);;
 
         return R.ok(1111);
+    }
+
+    @GetMapping("getTest002")
+    public R getTest002(){
+        System.out.println(56789);;
+
+        return R.ok(2222);
     }
 }

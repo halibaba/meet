@@ -1,6 +1,7 @@
 package com.meet.auth.config;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
+import com.meet.pub.entity.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,7 +30,17 @@ public class TestController {
 
     @GetMapping("/token")
     public String get(){
-        return "Hello Meet";
+        return "Hello token";
+    }
+
+    @GetMapping("/index")
+    public String index(){
+        return "Hello index";
+    }
+
+    @GetMapping("/users")
+    public String users(){
+        return "Hello users";
     }
 
     @Secured({"ROLE_test_sale"})

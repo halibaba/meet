@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  * @author: MT
  * @create: 2023-05-23 13:43
  **/
-@Configuration
+//@Configuration
 public class GatewayConfig {
 
     @Bean

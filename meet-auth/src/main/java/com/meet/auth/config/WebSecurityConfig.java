@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 这里的userDetailsService要和UserDetailsService类中的userDetailsService对应
      */
     @Autowired
-    private UserDetailsService userDetailsServiceImpl;
+    private UserDetailsService userDetailsService;
 
 
     /**
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 
     /**
@@ -69,38 +69,54 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param httpSecurity 请求属性
      * @throws Exception
      */
+//    @Override
+//    protected void configure(HttpSecurity httpSecurity) throws Exception {
+//        //退出
+////        httpSecurity.logout().logoutUrl("/logout").logoutSuccessUrl("/test/index").permitAll();
+//        //报错403时跳转到自定义页面
+////        httpSecurity.exceptionHandling().accessDeniedPage("/unauth.html");
+//        httpSecurity.authorizeRequests()
+//                // 允许get请求，而无需认证，不配置HttpMethod默认允许所有请求类型
+////                .antMatchers(HttpMethod.GET, "/oauth/update2").permitAll()
+//                //指定角色为admin才能访问，这里和方法注解配置效果一样，但是会覆盖注解,这里对应new GrantedAuthority()返回的ROLE_sale
+////                .antMatchers("/**").hasRole("sale")
+//                //指定权限为admin才能访问，这里和方法注解配置效果一样，但是会覆盖注解,这里需要和List<GrantedAuthority> auths = new ArrayList<>();
+//                //        auths.add(new SimpleGrantedAuthority("admin"))对应
+////                .antMatchers("/**").hasAuthority("admin")
+//                //免验证的路径
+//                .antMatchers("/oauth/index").permitAll()
+//                // 所有请求都需要验证
+//                .anyRequest().authenticated()
+//                .and()
+//                //.httpBasic() Basic认证，和表单认证只能选一个
+//                // 使用表单认证页面
+//                .formLogin()
+//                //页面登陆设置
+//                .loginPage("/login.html")
+//                //配置登录入口，默认为security自带的页面/login
+//                .loginProcessingUrl("/user/login")
+//                //登陆成功之后，跳转路径
+//                .defaultSuccessUrl("/oauth/index").permitAll()
+//                .and();
+//                // post请求要关闭csrf验证,不然访问报错；实际开发中开启，需要前端配合传递其他参数
+////                .csrf().disable();
+//        httpSecurity.formLogin()
+//                .failureUrl("/userLogin?err");
+//    }
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        //退出
-//        httpSecurity.logout().logoutUrl("/logout").logoutSuccessUrl("/test/index").permitAll();
-        //报错403时跳转到自定义页面
-//        httpSecurity.exceptionHandling().accessDeniedPage("/unauth.html");
-        httpSecurity.authorizeRequests()
-                // 允许get请求，而无需认证，不配置HttpMethod默认允许所有请求类型
-//                .antMatchers(HttpMethod.GET, "/oauth/update2").permitAll()
-                //指定角色为admin才能访问，这里和方法注解配置效果一样，但是会覆盖注解,这里对应new GrantedAuthority()返回的ROLE_sale
-//                .antMatchers("/**").hasRole("sale")
-                //指定权限为admin才能访问，这里和方法注解配置效果一样，但是会覆盖注解,这里需要和List<GrantedAuthority> auths = new ArrayList<>();
-                //        auths.add(new SimpleGrantedAuthority("admin"))对应
-//                .antMatchers("/**").hasAuthority("admin")
-                //免验证的路径
-//                .antMatchers("/**").permitAll()
-                // 所有请求都需要验证
-                .anyRequest().authenticated()
-                .and()
-                //.httpBasic() Basic认证，和表单认证只能选一个
-                // 使用表单认证页面
-                .formLogin()
-                //页面登陆设置
-//                .loginPage("/login.html")
-                //配置登录入口，默认为security自带的页面/login
-                .loginProcessingUrl("/login")
-                //登陆成功之后，跳转路径
-                .defaultSuccessUrl("/test/index").permitAll()
-                .and();
-                // post请求要关闭csrf验证,不然访问报错；实际开发中开启，需要前端配合传递其他参数
-//                .csrf().disable();
         httpSecurity.formLogin()
-                .failureUrl("/userLogin?err");
+                .loginPage("/login.html")
+                .loginProcessingUrl("/user/login")
+                .defaultSuccessUrl("/test/index").permitAll()
+                .and().authorizeRequests()
+//                .antMatchers("/oauth/index").permitAll()
+//                .antMatchers("/oauth/users").hasAuthority("ROLE_user")
+//                .antMatchers("/oauth/users").hasRole("user")
+                .anyRequest().authenticated()
+                .and().exceptionHandling().accessDeniedPage("/errDir/403.html")
+                .and().csrf().disable();
     }
+
 }
