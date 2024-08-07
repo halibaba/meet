@@ -65,13 +65,13 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = tokenManager.createToken(user.getCurrentUserInfo().getUsername());
         //把用户名称和用户权限列表放到redis
         redisTemplate.opsForValue().set(user.getCurrentUserInfo().getUsername(), user.getPermissionValueList());
-        ResponseUtil.out(response, R.ok().setData("token:"+token));
+        ResponseUtil.out(response, R.ok().data("token", token));
         super.successfulAuthentication(request, response, chain, authResult);
     }
 
     //认证失败调用的方法
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
-        ResponseUtil.out(response, R.failed());
+        ResponseUtil.out(response, R.error());
     }
 }
