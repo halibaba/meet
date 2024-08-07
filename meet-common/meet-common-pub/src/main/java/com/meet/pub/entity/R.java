@@ -1,97 +1,64 @@
-/*
- *
- *      Copyright (c) 2018-2025, workdata All rights reserved.
- *
- *  Redistribution and use in source and binary forms, with or without
- *  modification, are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice,
- *  this list of conditions and the following disclaimer.
- *  Redistributions in binary form must reproduce the above copyright
- *  notice, this list of conditions and the following disclaimer in the
- *  documentation and/or other materials provided with the distribution.
- *  Neither the name of the pig4cloud.com developer nor the names of its
- *  contributors may be used to endorse or promote products derived from
- *  this software without specific prior written permission.
- *  Author: workdata
- *
- */
-
 package com.meet.pub.entity;
 
-import com.meet.pub.constant.CommonConstants;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
-import lombok.experimental.Accessors;
+import lombok.Data;
+import java.util.HashMap;
+import java.util.Map;
 
-import java.io.Serializable;
+//统一返回结果的类
+@Data
+public class R {
 
-/**
- * 响应信息主体
- *
- * @param <T>
- * @author meet
- */
-@Builder
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Accessors(chain = true)
-@ApiModel(value = "响应信息主体")
-public class R<T> implements Serializable {
+    private Boolean success;
 
-	private static final long serialVersionUID = 1L;
+    private Integer code;
 
-	@Getter
-	@Setter
-	@ApiModelProperty(value = "返回标记：成功标记=0，失败标记=1")
-	private int code;
+    private String message;
 
-	@Getter
-	@Setter
-	@ApiModelProperty(value = "返回信息")
-	private String msg;
+    private Map<String, Object> data = new HashMap<String, Object>();
 
-	@Getter
-	@Setter
-	@ApiModelProperty(value = "数据")
-	private T data;
+    //把构造方法私有
+    private R() {}
 
-	public static <T> R<T> ok() {
-		return restResult(null, CommonConstants.SUCCESS, null);
-	}
+    //成功静态方法
+    public static R ok() {
+        R r = new R();
+        r.setSuccess(true);
+        r.setCode(20000);
+        r.setMessage("成功");
+        return r;
+    }
 
-	public static <T> R<T> ok(T data) {
-		return restResult(data, CommonConstants.SUCCESS, null);
-	}
+    //失败静态方法
+    public static R error() {
+        R r = new R();
+        r.setSuccess(false);
+        r.setCode(20001);
+        r.setMessage("失败");
+        return r;
+    }
 
-	public static <T> R<T> ok(T data, String msg) {
-		return restResult(data, CommonConstants.SUCCESS, msg);
-	}
+    public R success(Boolean success){
+        this.setSuccess(success);
+        return this;
+    }
 
-	public static <T> R<T> failed() {
-		return restResult(null, CommonConstants.FAIL, null);
-	}
+    public R message(String message){
+        this.setMessage(message);
+        return this;
+    }
 
-	public static <T> R<T> failed(String msg) {
-		return restResult(null, CommonConstants.FAIL, msg);
-	}
+    public R code(Integer code){
+        this.setCode(code);
+        return this;
+    }
 
-	public static <T> R<T> failed(T data) {
-		return restResult(data, CommonConstants.FAIL, null);
-	}
+    public R data(String key, Object value){
+        this.data.put(key, value);
+        return this;
+    }
 
-	public static <T> R<T> failed(T data, String msg) {
-		return restResult(data, CommonConstants.FAIL, msg);
-	}
-
-	static <T> R<T> restResult(T data, int code, String msg) {
-		R<T> apiResult = new R<>();
-		apiResult.setCode(code);
-		apiResult.setData(data);
-		apiResult.setMsg(msg);
-		return apiResult;
-	}
-
+    public R data(Map<String, Object> map){
+        this.setData(map);
+        return this;
+    }
 }
