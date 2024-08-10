@@ -23,7 +23,7 @@ public class R {
     public static R ok() {
         R r = new R();
         r.setSuccess(true);
-        r.setCode(20000);
+        r.setCode(200);
         r.setMessage("成功");
         return r;
     }

@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author: MT
  * @create: 2024-08-07 21:37
  **/
-@Configuration
+//@Configuration
 public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private TokenManager tokenManager;

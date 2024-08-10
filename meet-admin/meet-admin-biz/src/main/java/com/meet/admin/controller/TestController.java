@@ -42,20 +42,20 @@ public class TestController {
         XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
         XSSFSheet sheetAt = workbook.getSheetAt(0);
 
-        return R.ok(1111);
+        return R.ok();
     }
 
     @GetMapping("getTest001")
     public R getTest001(){
         System.out.println(123456);;
 
-        return R.ok(1111);
+        return R.ok();
     }
 
     @GetMapping("getTest002")
     public R getTest002(){
         System.out.println(56789);;
 
-        return R.ok(2222);
+        return R.ok();
     }
 }

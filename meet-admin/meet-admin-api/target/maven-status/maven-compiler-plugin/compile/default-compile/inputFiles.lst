@@ -1,8 +1,0 @@
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/mapstruct/MtUserInfoConverter.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/mapstruct/BaseObjectMapper.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/mapstruct/MarketSmsTargetedUserBaseBeanMapper.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/entity/MtUserInfo.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/vo/MtUserInfoVo.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/entity/MtUserExtendInfo.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/dto/MtUserInfoDTO.java
-/Users/huangjiayi/2022/meets/meet-boot/meet-admin/meet-admin-api/src/main/java/com/meet/feign/MtUserInfoClient.java

@@ -40,7 +40,7 @@ public class MtUserInfoServiceImpl extends ServiceImpl<MtUserInfoMapper, MtUserI
         LambdaQueryWrapper<MtUserInfo> wrapper = new LambdaQueryWrapper<>();
         Page<MtUserInfo> resPage = baseMapper.selectPage(page, wrapper);
         IPage<MtUserInfoVo> convert = resPage.convert(this::getMtUserInfoVo);
-        return R.ok(convert);
+        return R.ok().data("data", convert);
     }
 
     public MtUserInfoVo getMtUserInfoVo(MtUserInfo entity){
@@ -53,7 +53,7 @@ public class MtUserInfoServiceImpl extends ServiceImpl<MtUserInfoMapper, MtUserI
     public R insert(MtUserInfoDTO dto) {
         MtUserInfo mtUserInfo = new MtUserInfo();
         MtUserInfoConverter.INSTANCE.DTOToEntity(dto, mtUserInfo);
-        return R.ok(this.baseMapper.insert(mtUserInfo));
+        return R.ok().data("data", this.baseMapper.insert(mtUserInfo));
     }
 
     @Override
@@ -63,11 +63,11 @@ public class MtUserInfoServiceImpl extends ServiceImpl<MtUserInfoMapper, MtUserI
         UpdateWrapper<MtUserInfo> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id", mtUserInfo.getId());
         int update = this.baseMapper.update(mtUserInfo,updateWrapper);
-        return R.ok(update);
+        return R.ok().data("data", update);
     }
 
     @Override
     public R queryOne(MtUserInfoDTO dto) {
-        return R.ok(baseMapper.queryOne(dto));
+        return R.ok().data("data", baseMapper.queryOne(dto));
     }
 }

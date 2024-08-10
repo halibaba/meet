@@ -25,7 +25,7 @@ import javax.sql.DataSource;
  * @author: MT
  * @create: 2022-12-05 16:44
  **/
-//@Configuration
+@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -127,6 +127,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/user/login")
                 .defaultSuccessUrl("/success.html").permitAll()
                 .and().authorizeRequests()
+                .antMatchers("/oauth/token","/admin/acl/user/save").permitAll()
 //                .antMatchers("/oauth/index").permitAll()
 //                .antMatchers("/oauth/users").hasAuthority("ROLE_user")
 //                .antMatchers("/oauth/users").hasRole("user")

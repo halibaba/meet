@@ -22,7 +22,7 @@ import java.util.List;
  * @author: MT
  * @create: 2022-12-05 16:45
  **/
-//@Service("userDetailsService")
+@Service("userDetailsService")
 public class MeetUserDetailsService implements UserDetailsService {
 
 //    private MtUserInfoClient mtUserInfoClient;

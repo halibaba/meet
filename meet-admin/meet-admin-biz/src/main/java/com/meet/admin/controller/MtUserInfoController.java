@@ -39,27 +39,28 @@ public class MtUserInfoController {
         System.out.println("++++++++++++++++++"+now);
 
         System.out.println(httpServletRequest.getRequestURI());
-        return R.ok(mtUserInfoService.queryPage(page, mtUserInfo));
+        R r = mtUserInfoService.queryPage(page, mtUserInfo);
+        return R.ok();
     }
 
     @GetMapping("page")
     public R queryPage(){
-        return R.ok(mtUserInfoService.page(new Page<>(), new LambdaQueryWrapper<MtUserInfo>()));
+        return R.ok().data("data", mtUserInfoService.page(new Page<>(), new LambdaQueryWrapper<MtUserInfo>()));
     }
 
     @PostMapping("insert")
     public R insert(@RequestBody MtUserInfoDTO dto){
-        return R.ok(mtUserInfoService.insert(dto));
+        return R.ok().data("data", mtUserInfoService.insert(dto));
     }
 
     @PostMapping("update")
     public R update(@RequestBody MtUserInfoDTO dto){
-        return R.ok(mtUserInfoService.update(dto));
+        return R.ok().data("data", mtUserInfoService.update(dto));
     }
 
     @GetMapping("query_one/{id}")
     public R queryOne(@PathVariable String id){
-        return R.ok(mtUserInfoService.getById(id));
+        return R.ok().data("data", mtUserInfoService.getById(id));
     }
 }
 

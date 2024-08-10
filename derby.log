@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Sat Aug 03 07:58:50 CST 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0191-1588-2976-000017816d68 
-on database directory /Users/huangjiayi/nacos/data/derby-data with class loader sun.misc.Launcher$AppClassLoader@18b4aac2 
-Loaded from file:/Users/huangjiayi/.m2/other/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
+Sat Aug 10 13:33:08 CST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0191-3ac6-bcf0-000014dc83a8 
+on database directory /Users/huangjiayi/nacos/data/derby-data with class loader sun.misc.Launcher$AppClassLoader@3eb07fd3 
+Loaded from file:/Users/huangjiayi/.m2/repository2/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_291-b10
-user.dir=/Users/huangjiayi/2022/meets/meet-boot
+java.runtime.version=1.8.0_421-b09
+user.dir=/Users/huangjiayi/IdeaProjects/meet
 os.name=Mac OS X
 os.arch=x86_64
-os.version=10.16
+os.version=11.5.1
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

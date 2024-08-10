@@ -25,7 +25,7 @@ public interface MtUserInfoClient {
      * @return R
      */
     @GetMapping("/mt-user-info/query_one/{username}")
-    R<MtUserInfoVo> queryOne(@PathVariable("username") String username);
+    MtUserInfoVo queryOne(@PathVariable("username") String username);
 
     /**
      * 通过
