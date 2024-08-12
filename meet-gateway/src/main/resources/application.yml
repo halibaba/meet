@@ -16,9 +16,9 @@ spring:
 #        server-addr: ${spring.cloud.nacos.discovery.server-addr}
 #        refreshable-dataids: gateway-dev.yml
     gateway:
-#      discovery:
-#        locator:
-#          enabled: true #是否开启从注册中心动态创建路由的功能，可调用RouteConfigController中的接口传递参数
+      discovery:
+        locator:
+          enabled: true #是否开启从注册中心动态创建路由的功能，可调用RouteConfigController中的接口传递参数
       routes:
         - id: meet-admin-biz    #路由的ID，没有固定规则但要求唯一，建议配合服务名
           uri: lb://meet-admin-biz

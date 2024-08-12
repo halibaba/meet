@@ -1,5 +1,6 @@
 package com.meet.auth.config.impl;
 
+import com.meet.auth.entity.SecurityUser;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author: MT
  * @create: 2022-12-05 16:45
  **/
-@Service("userDetailsService")
+//@Service("userDetailsService")
 public class MeetUserDetailsService implements UserDetailsService {
 
 //    private MtUserInfoClient mtUserInfoClient;
@@ -92,7 +93,8 @@ public class MeetUserDetailsService implements UserDetailsService {
 //
 //            }
 //        });
-        return new User(s, new BCryptPasswordEncoder().encode("123456"), auths);
+        UserDetails userDetail = new User(s, new BCryptPasswordEncoder().encode("123456"), auths);
+        return userDetail;
     }
 
 //    @Override

@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -61,6 +63,8 @@ public class UserController {
     @PostMapping("save")
     public R save(@RequestBody User user) {
         user.setPassword(MD5.encrypt(user.getPassword()));
+        user.setGmtCreate(new Date());
+        user.setGmtModified(new Date());
         userService.save(user);
         return R.ok();
     }

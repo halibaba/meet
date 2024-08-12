@@ -25,7 +25,7 @@ import javax.sql.DataSource;
  * @author: MT
  * @create: 2022-12-05 16:44
  **/
-@Configuration
+//@Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
@@ -134,9 +134,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and().rememberMe().tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60)  //设置有效时长 单位秒
-                .userDetailsService(userDetailsService)
+//                .userDetailsService(userDetailsService)
                 .and().exceptionHandling().accessDeniedPage("/errDir/403.html")
                 .and().csrf().disable();
     }
+
+
 
 }

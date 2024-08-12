@@ -47,7 +47,7 @@ public class TestController {
 
     @GetMapping("getTest001")
     public R getTest001(){
-        System.out.println(123456);;
+        System.out.println(123456);
 
         return R.ok();
     }

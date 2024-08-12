@@ -38,12 +38,21 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        // 获取请求头中的token
+        String token = request.getHeader("token");
+
+        if (token == null || token.isEmpty()) {
+            // 如果没有携带token，重定向到登录页面
+            response.sendRedirect("http://localhost:3000/login.html");
+            return;
+        }
         //获取当前认证成功用户权限信息
         UsernamePasswordAuthenticationToken authRequest = getAuthentication(request);
         //判断如果有权限信息，放到权限上下文中
         if(authRequest != null){
             SecurityContextHolder.getContext().setAuthentication(authRequest);
         }
+        chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {

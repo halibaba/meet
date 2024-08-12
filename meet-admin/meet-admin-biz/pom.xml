@@ -120,7 +120,7 @@
 
         <dependency>
             <groupId>com.meet</groupId>
-            <artifactId>meet-common-auth</artifactId>
+            <artifactId>meet-auth</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

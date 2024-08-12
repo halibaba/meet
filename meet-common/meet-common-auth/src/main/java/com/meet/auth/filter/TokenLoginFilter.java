@@ -11,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -39,21 +41,43 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         this.tokenManager = tokenManager;
         this.redisTemplate = redisTemplate;
         this.setPostOnly(false);
-        this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/admin/acl/login", "POST"));
+        this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/user/login", "POST"));
     }
 
     //获取表单提交过来的用户名和密码
 
+//    @Override
+//    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+//        //获取表单提交数据
+//        try {
+//            User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
+//            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>()));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException();
+//        }
+//    }
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        //获取表单提交数据
-        try {
-            User user = new ObjectMapper().readValue(request.getInputStream(), User.class);
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), new ArrayList<>()));
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+        // 获取表单提交数据
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+
+        if (username == null || password == null) {
+            throw new RuntimeException("用户名或密码为空");
         }
+
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>()));
+
+        if (auth != null && auth.isAuthenticated()) {
+            SecurityContextHolder.getContext().setAuthentication(auth);
+        } else {
+            throw new RuntimeException("Authentication failed");
+        }
+
+        return auth;
     }
 
     //认证成功调用的方法
@@ -66,7 +90,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         //把用户名称和用户权限列表放到redis
         redisTemplate.opsForValue().set(user.getCurrentUserInfo().getUsername(), user.getPermissionValueList());
         ResponseUtil.out(response, R.ok().data("token", token));
-        super.successfulAuthentication(request, response, chain, authResult);
+//        super.successfulAuthentication(request, response, chain, authResult);
     }
 
     //认证失败调用的方法

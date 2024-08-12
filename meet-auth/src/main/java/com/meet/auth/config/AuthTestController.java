@@ -1,21 +1,11 @@
 package com.meet.auth.config;
 
 //import org.springframework.security.access.prepost.PreAuthorize;
-import com.meet.pub.entity.R;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @program: meet-boot
@@ -26,7 +16,7 @@ import java.util.List;
  **/
 @RestController
 @RequestMapping("/oauth")
-public class TestController {
+public class AuthTestController {
 
     @GetMapping("/token")
     public String get(){

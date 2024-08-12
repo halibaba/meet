@@ -29,7 +29,7 @@ import java.util.List;
  * @author: MT
  * @create: 2024-07-31 23:01
  **/
-@Component
+//@Component
 public class MeetGatewayFilterFactory extends AbstractGatewayFilterFactory<MeetGatewayFilterFactory.Config> {
 
     public MeetGatewayFilterFactory(){

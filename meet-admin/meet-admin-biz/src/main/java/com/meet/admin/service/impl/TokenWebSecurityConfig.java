@@ -1,4 +1,4 @@
-package com.meet.auth.config;
+package com.meet.admin.service.impl;
 
 import com.meet.auth.filter.TokenAuthFilter;
 import com.meet.auth.filter.TokenLoginFilter;
@@ -7,11 +7,14 @@ import com.meet.auth.security.TokenLogoutHandler;
 import com.meet.auth.security.TokenManager;
 import com.meet.auth.security.UnAuthEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -22,18 +25,22 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @author: MT
  * @create: 2024-08-07 21:37
  **/
-//@Configuration
+@Configuration
+//@EnableWebSecurity
 public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private TokenManager tokenManager;
     private RedisTemplate redisTemplate;
     private DefaultPasswordEncoder defaultPasswordEncoder;
+
+    @Autowired
+    @Qualifier("meetUserDetailsService")
     private UserDetailsService userDetailsService;
 
     @Autowired
     public TokenWebSecurityConfig(UserDetailsService userDetailsService, DefaultPasswordEncoder defaultPasswordEncoder,
                                   TokenManager tokenManager, RedisTemplate redisTemplate){
-        this.userDetailsService = userDetailsService;
+//        this.userDetailsService = userDetailsService;
         this.defaultPasswordEncoder = defaultPasswordEncoder;
         this.tokenManager = tokenManager;
         this.redisTemplate = redisTemplate;
@@ -62,6 +69,6 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     //不进行认证的路径
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/api/**");
+        web.ignoring().antMatchers("/test/getTest001", "/login.html");
     }
 }
