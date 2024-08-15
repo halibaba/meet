@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon Aug 12 19:48:33 CST 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0191-466b-2925-0000188913f0 
+Thu Aug 15 19:29:44 CST 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0191-55cd-0105-000018e9b890 
 on database directory /Users/huangjiayi/nacos/data/derby-data with class loader sun.misc.Launcher$AppClassLoader@3eb07fd3 
 Loaded from file:/Users/huangjiayi/.m2/repository2/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation

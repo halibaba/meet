@@ -43,4 +43,8 @@
         </where>
     </select>
 
+    <select id="queryPage" resultType="com.meet.vo.MtUserInfoVo">
+        SELECT * FROM MT_USER_INFO
+    </select>
+
 </mapper>

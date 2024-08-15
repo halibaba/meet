@@ -7,12 +7,14 @@ import com.meet.pub.entity.R;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: meet-boot
@@ -27,6 +29,9 @@ public class TestController {
 
     @Autowired
     private PaymentFeignService paymentFeignService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @GetMapping("get1/{i}")
     public R queryPage(@PathVariable("i") Integer i){
@@ -47,8 +52,9 @@ public class TestController {
 
     @GetMapping("getTest001")
     public R getTest001(){
-        System.out.println(123456);
-
+        redisTemplate.opsForValue().get("key1");
+        redisTemplate.opsForValue().set("key1", "1", 10, TimeUnit.SECONDS);
+        redisTemplate.opsForValue().get("key1");
         return R.ok();
     }
 

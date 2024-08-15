@@ -38,38 +38,36 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        // 获取请求头中的token
-        String token = request.getHeader("token");
+        // 尝试从 Authorization 头中获取 token
+        UsernamePasswordAuthenticationToken authRequest = getAuthentication(request);
 
-        if (token == null || token.isEmpty()) {
-            // 如果没有携带token，重定向到登录页面
-            response.sendRedirect("http://localhost:3000/login.html");
+        if (authRequest == null) {
+            // 如果没有携带 token 或 token 不合法，返回未认证的状态
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token is missing or invalid");
             return;
         }
-        //获取当前认证成功用户权限信息
-        UsernamePasswordAuthenticationToken authRequest = getAuthentication(request);
-        //判断如果有权限信息，放到权限上下文中
-        if(authRequest != null){
-            SecurityContextHolder.getContext().setAuthentication(authRequest);
-        }
+
+        // 将认证信息放入安全上下文中
+        SecurityContextHolder.getContext().setAuthentication(authRequest);
         chain.doFilter(request, response);
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
-        //从header获取token
-        String token = request.getHeader("token");
-        if(token != null){
-            //从token获取用户名
+        String token = request.getHeader("Authorization");
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+
             String username = tokenManager.getUserInfoFromToken(token);
 
-            //从redis获取对应权限列表
-            List<String> permissionValueList = (List<String>)redisTemplate.opsForValue().get(username);
-            Collection<GrantedAuthority> authorities = new ArrayList<>();
-            for (String permissionValue : permissionValueList) {
-                SimpleGrantedAuthority auth = new SimpleGrantedAuthority(permissionValue);
-                authorities.add(auth);
+            // 从 redis 获取对应权限列表
+            List<String> permissionValueList = (List<String>) redisTemplate.opsForValue().get(username);
+            if (permissionValueList != null) {
+                Collection<GrantedAuthority> authorities = new ArrayList<>();
+                for (String permissionValue : permissionValueList) {
+                    authorities.add(new SimpleGrantedAuthority(permissionValue));
+                }
+                return new UsernamePasswordAuthenticationToken(username, token, authorities);
             }
-            return new UsernamePasswordAuthenticationToken(username, token, authorities);
         }
         return null;
     }

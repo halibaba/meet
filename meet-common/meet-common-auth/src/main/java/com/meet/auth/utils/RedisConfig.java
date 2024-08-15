@@ -13,6 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisPassword;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
@@ -75,7 +78,14 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
-        return new JedisConnectionFactory();
+        RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
+        redisConfig.setHostName("localhost");
+        redisConfig.setPort(6379);
+        redisConfig.setPassword(RedisPassword.of("123456")); // 设置密码
+
+        JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
+
+        return new JedisConnectionFactory(redisConfig, jedisClientConfiguration.build());
     }
 
     @Bean

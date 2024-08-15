@@ -9,7 +9,7 @@ import lombok.Data;
  * @date: 2022/11/29 10:23 上午
  */
 @Data
-public class MtUserInfoVo extends MtUserInfo {
+public class MtUserInfoVo {
 
     @ApiModelProperty(value = "用户名")
     private String username;

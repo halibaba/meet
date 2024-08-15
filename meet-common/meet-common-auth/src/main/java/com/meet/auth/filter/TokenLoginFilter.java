@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @program: meet-boot
@@ -83,14 +84,26 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
     //认证成功调用的方法
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
-        //认证成功，得到认证成功之后用户信息
-        SecurityUser user = (SecurityUser)authResult.getPrincipal();
-        //根据用户名生成token
+        // 认证成功，得到认证成功之后用户信息
+        SecurityUser user = (SecurityUser) authResult.getPrincipal();
+
+        // 根据用户名生成 token
         String token = tokenManager.createToken(user.getCurrentUserInfo().getUsername());
-        //把用户名称和用户权限列表放到redis
-        redisTemplate.opsForValue().set(user.getCurrentUserInfo().getUsername(), user.getPermissionValueList());
+
+        // 把用户名称和用户权限列表放到 redis
+        redisTemplate.opsForValue().set(user.getCurrentUserInfo().getUsername(), user.getPermissionValueList(), 60, TimeUnit.SECONDS);
+
+        // 将 token 添加到响应头中
+        response.addHeader("Authorization", "Bearer " + token);
+
+        // 设置 SecurityContext 以便后续请求识别用户身份
+        SecurityContextHolder.getContext().setAuthentication(authResult);
+
+        // 重定向到 success.html
+//        response.sendRedirect("/success.html");
+
+        // 返回 token 到前端
         ResponseUtil.out(response, R.ok().data("token", token));
-//        super.successfulAuthentication(request, response, chain, authResult);
     }
 
     //认证失败调用的方法

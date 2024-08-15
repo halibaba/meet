@@ -51,31 +51,31 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return this.currentUserInfo.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return this.currentUserInfo.getUsername();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

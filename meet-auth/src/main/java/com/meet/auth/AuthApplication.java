@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @SpringBootApplication
 //使用注解开启权限校验时需要使用该注解
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-@MapperScan("com.meet.auth.mapper")
 public class AuthApplication {
 
     public static void main(String[] args) {

@@ -40,7 +40,7 @@ public class MtUserInfoController {
 
         System.out.println(httpServletRequest.getRequestURI());
         R r = mtUserInfoService.queryPage(page, mtUserInfo);
-        return R.ok();
+        return r;
     }
 
     @GetMapping("page")

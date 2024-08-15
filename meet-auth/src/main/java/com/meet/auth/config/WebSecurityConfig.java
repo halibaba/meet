@@ -106,7 +106,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                // 使用表单认证页面
 //                .formLogin()
 //                //页面登陆设置
-//                .loginPage("/login.html")
+//                .loginPage("/login2.html")
 //                //配置登录入口，默认为security自带的页面/login
 //                .loginProcessingUrl("/user/login")
 //                //登陆成功之后，跳转路径

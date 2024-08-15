@@ -1,4 +1,4 @@
-package com.meet.admin.service.impl;
+package com.meet.admin.config;
 
 import com.meet.auth.filter.TokenAuthFilter;
 import com.meet.auth.filter.TokenLoginFilter;
@@ -26,7 +26,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @create: 2024-08-07 21:37
  **/
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private TokenManager tokenManager;
@@ -54,7 +54,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .authorizeRequests()
                 .anyRequest().authenticated()
-                .and().logout().logoutUrl("/admin/acl/index/logout")//设置退出的路径
+                .and().logout().logoutUrl("/logout")//设置退出的路径
                 .addLogoutHandler(new TokenLogoutHandler(tokenManager, redisTemplate)).and()
                 .addFilter(new TokenLoginFilter(authenticationManager(), tokenManager, redisTemplate))
                 .addFilter(new TokenAuthFilter(authenticationManager(), tokenManager, redisTemplate)).httpBasic();
