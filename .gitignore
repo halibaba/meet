@@ -1,8 +1,17 @@
-### Example user template template
-### Example user template
+# Maven
+target/
 
-# IntelliJ project files
-.idea
+# IntelliJ IDEA
+.idea/
 *.iml
-out
-gen
+*.iws
+*.ipr
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Java
+*.class

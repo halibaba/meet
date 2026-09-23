@@ -1,4 +1,4 @@
-package com.meet.netty.groupChatTest;
+package com.meet.netty.groupChatTest2;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
@@ -23,15 +23,13 @@ public class GroupChatClient {
     public void run(){
         EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
-        Bootstrap bootstrap = new Bootstrap();
-
         try {
+            Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(eventLoopGroup);
             bootstrap.channel(NioSocketChannel.class);
             bootstrap.handler(new ChannelInitializer<SocketChannel>() {
                 @Override
                 protected void initChannel(SocketChannel ch) throws Exception {
-                    //得到pipeline
                     ChannelPipeline pipeline = ch.pipeline();
                     pipeline.addLast("decoder", new StringDecoder());
                     pipeline.addLast("encoder", new StringEncoder());
@@ -40,18 +38,16 @@ public class GroupChatClient {
             });
 
             ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
-            //得到channel
             Channel channel = channelFuture.channel();
             System.out.println("------" + channel.localAddress() + "-------");
+
             Scanner scanner = new Scanner(System.in);
-            //私聊思路
-//            System.out.println("请输入你的id：");
-//            String userId = scanner.nextLine();
-//            channel.writeAndFlush("/login" + userId + "\r\n");
-            //群聊
+            System.out.println("请输入你的用户ID：");
+            String userId = scanner.nextLine();
+            channel.writeAndFlush("/login " + userId + "\r\n");
+
             while (scanner.hasNext()){
                 String msg = scanner.nextLine();
-                //通过channel发送到服务器端
                 channel.writeAndFlush(msg + "\r\n");
             }
         }catch (Exception e){
@@ -59,8 +55,6 @@ public class GroupChatClient {
         }finally {
             eventLoopGroup.shutdownGracefully();
         }
-
-
     }
 
     public static void main(String[] args) {

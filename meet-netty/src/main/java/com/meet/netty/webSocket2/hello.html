@@ -2,51 +2,92 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>WebSocket 聊天</title>
 </head>
 <body>
+<h2>WebSocket 聊天客户端</h2>
+
+<!-- 登录框 -->
+<div>
+    <label>用户ID：</label>
+    <input type="text" id="userId" placeholder="请输入您的用户名">
+    <button onclick="sendLogin()">登录</button>
+</div>
+
+<!-- 聊天消息框 -->
+<div style="margin-top: 20px;">
+    <textarea id="messageInput" placeholder="输入消息（/to 对方ID 消息 或直接输入内容为群发）" style="height: 100px; width: 300px;"></textarea>
+    <br>
+    <button onclick="sendMessage()">发送消息</button>
+    <button onclick="clearChat()">清空聊天记录</button>
+</div>
+
+<!-- 显示服务器消息 -->
+<div style="margin-top: 20px;">
+    <h3>聊天记录</h3>
+    <textarea id="responseText" readonly style="height: 300px; width: 600px;"></textarea>
+</div>
+
 <script>
-    var socket;
-    //判断当前浏览器是否支持webSocket
-    if(window.WebSocket){
+    let socket;
+
+    // 初始化 WebSocket
+    if (window.WebSocket) {
         socket = new WebSocket("ws://localhost:7000/hello");
-        //相当于channelRead0,ev可以收到服务器端回送的消息
-        socket.onmessage = function(ev){
-            var rt = document.getElementById("responseText");
-            rt.value = rt.value + "\n" + ev.data;
-        }
-        //相当于连接开启
-        socket.onopen = function (ev){
-            var rt = document.getElementById("responseText");
-            rt.value = "连接开启了..."
-        }
-        //感知连接关闭
-        socket.onclose = function (ev){
-            var rt = document.getElementById("responseText");
-            rt.value = "连接关闭了"
-        }
-    }else {
-        alert("当前浏览器不支持webSocket！");
+
+        socket.onopen = function () {
+            log("【系统】连接已建立");
+        };
+
+        socket.onmessage = function (event) {
+            log(event.data);
+        };
+
+        socket.onclose = function () {
+            log("【系统】连接已关闭");
+        };
+
+        socket.onerror = function (err) {
+            log("【系统】发生错误: " + err);
+        };
+    } else {
+        alert("当前浏览器不支持WebSocket！");
     }
 
-    //发送消息到服务器
-    function send(message){
-        if(!window.socket){ //线判断socket是否创建好
+    // 日志输出到 textarea
+    function log(msg) {
+        const rt = document.getElementById("responseText");
+        rt.value += msg + "\n";
+        rt.scrollTop = rt.scrollHeight; // 自动滚动到底部
+    }
+
+    // 发送登录信息
+    function sendLogin() {
+        const userId = document.getElementById("userId").value.trim();
+        if (!userId) {
+            alert("请输入用户ID");
             return;
         }
-        if(socket.readyState == WebSocket.OPEN){
-            //通过socket发送消息
+        socket.send("/login " + userId);
+    }
+
+    // 发送消息
+    function sendMessage() {
+        const message = document.getElementById("messageInput").value.trim();
+        if (!message) return;
+
+        if (socket.readyState === WebSocket.OPEN) {
             socket.send(message);
-        }else {
-            alert("连接未开启！");
+            document.getElementById("messageInput").value = "";
+        } else {
+            alert("WebSocket连接尚未开启！");
         }
     }
+
+    // 清空聊天记录
+    function clearChat() {
+        document.getElementById("responseText").value = "";
+    }
 </script>
-    <form onsubmit="return false">
-        <textarea name="message" style="height: 300px; width: 300px"></textarea>
-        <input type="button" value="发送消息" onclick="send(this.form.message.value)">
-        <textarea id="responseText" style="height:300px; width: 300px"></textarea>
-        <input type="button" value="清空内容" onclick="document.getElementById('responseText').value=''">
-    </form>
 </body>
 </html>

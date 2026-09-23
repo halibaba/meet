@@ -1,17 +1,12 @@
-package com.meet.netty.groupChatTest;
+package com.meet.netty.groupChatTest2;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
-public class GroupChatClientHandler extends SimpleChannelInboundHandler {
+public class GroupChatClientHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println(msg.toString().trim());
-    }
-
-    @Override
-    protected void messageReceived(ChannelHandlerContext channelHandlerContext, Object o) throws Exception {
-
+    protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
+        System.out.println(msg.trim());
     }
 }

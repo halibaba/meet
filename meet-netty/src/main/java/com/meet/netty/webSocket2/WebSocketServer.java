@@ -1,4 +1,4 @@
-package com.meet.netty.webSocket;
+package com.meet.netty.webSocket2;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

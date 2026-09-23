@@ -1,4 +1,4 @@
-package com.meet.netty.groupChatTest;
+package com.meet.netty.groupChatTest2;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -19,9 +19,7 @@ public class GroupChatServer {
         this.port = port;
     }
 
-    //编写run方法处理客户端请求
     public void run(){
-        //创建两个线程组
         NioEventLoopGroup bossGroup = new NioEventLoopGroup(1);
         NioEventLoopGroup workGroup = new NioEventLoopGroup();
 
@@ -34,18 +32,15 @@ public class GroupChatServer {
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            //获取pipeline
                             ChannelPipeline pipeline = ch.pipeline();
-                            //向pipeline里面加入解码器
                             pipeline.addLast("decoder", new StringDecoder());
-                            pipeline.addLast("eecoder", new StringEncoder());
+                            pipeline.addLast("encoder", new StringEncoder());
                             pipeline.addLast(new GroupChatServerHandler());
                         }
                     });
+
             System.out.println("服务器启动...");
             ChannelFuture channelFuture = b.bind(port).sync();
-
-            //监听关闭
             channelFuture.channel().closeFuture().sync();
         }catch (Exception e){
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package com.meet.netty.groupChatTest;
+package com.meet.netty.groupChatTest2;
 
 import java.util.Objects;
 

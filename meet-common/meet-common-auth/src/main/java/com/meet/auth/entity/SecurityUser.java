@@ -1,7 +1,5 @@
 package com.meet.auth.entity;
 
-import com.sun.deploy.util.StringUtils;
-import io.swagger.annotations.ApiModel;
 import jodd.util.StringUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

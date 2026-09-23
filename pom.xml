@@ -21,6 +21,7 @@
         <module>sharding-jdbc-test1</module>
         <module>sharding-jdbc-test2</module>
         <module>meet-elasticsearch</module>
+        <module>meet-netty</module>
     </modules>
 
     <properties>
