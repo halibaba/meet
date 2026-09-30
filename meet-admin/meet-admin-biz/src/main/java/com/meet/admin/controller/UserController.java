@@ -6,14 +6,21 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.meet.admin.service.RoleService;
 import com.meet.admin.service.UserService;
-import com.meet.auth.utils.MD5;
+import com.meet.auth.entity.SecurityUser;
+import com.meet.dto.LoginUserDTO;
 import com.meet.entity.User;
 import com.meet.pub.entity.R;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -37,6 +44,30 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    @Qualifier("meetUserDetailsService")
+    private UserDetailsService userDetailsService;
+
+    @ApiOperation(value = "按用户名查询登录信息")
+    @GetMapping("login/{username}")
+    public LoginUserDTO loginUser(@PathVariable String username) {
+        SecurityUser securityUser;
+        try {
+            securityUser = (SecurityUser) userDetailsService.loadUserByUsername(username);
+        } catch (UsernameNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "用户不存在");
+        }
+        com.meet.auth.entity.User currentUser = securityUser.getCurrentUserInfo();
+        LoginUserDTO loginUser = new LoginUserDTO();
+        loginUser.setUsername(currentUser.getUsername());
+        loginUser.setPassword(currentUser.getPassword());
+        loginUser.setNickName(currentUser.getNickName());
+        loginUser.setSalt(currentUser.getSalt());
+        loginUser.setToken(currentUser.getToken());
+        loginUser.setPermissionValueList(securityUser.getPermissionValueList());
+        return loginUser;
+    }
 
     @ApiOperation(value = "获取管理用户分页列表")
     @GetMapping("{page}/{limit}")
@@ -62,7 +93,7 @@ public class UserController {
     @ApiOperation(value = "新增管理用户")
     @PostMapping("save")
     public R save(@RequestBody User user) {
-        user.setPassword(MD5.encrypt(user.getPassword()));
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         user.setGmtCreate(new Date());
         user.setGmtModified(new Date());
         userService.save(user);

@@ -15,7 +15,14 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver        #mysql驱动包
     url: jdbc:mysql://127.0.0.1:3306/meet_admin?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
     username: root
-    password: 1234
+    password: 123456
+
+meet:
+  gateway:
+    internal-token: 7c1e9a4b6d2f80e35a1c9b7d4e6f2038a5c1d9e7b3f60482c0a6e8d1b5f39274
+  auth:
+    require-user-token: true
+    token-sign-key: d3c10b411270d3a9f8975e58ab3dc3d859426df720e752076de0638903902fa7afbf8891feef4f04cb449b7fb7dd515ba1d39d457368304515c1a09dfafade3c
 
 
 mybatis-plus:

@@ -16,7 +16,7 @@ import sun.security.util.SecurityConstants;
  * @author: MT
  * @create: 2022-12-06 12:16
  **/
-@FeignClient(value = "meet-admin-biz")
+@FeignClient(value = "meet-admin-biz", contextId = "mtUserInfoClient")
 public interface MtUserInfoClient {
 
     /**

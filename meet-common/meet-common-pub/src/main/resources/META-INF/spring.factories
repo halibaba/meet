@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+meet.pub.gateway.GatewayInternalTokenAutoConfiguration

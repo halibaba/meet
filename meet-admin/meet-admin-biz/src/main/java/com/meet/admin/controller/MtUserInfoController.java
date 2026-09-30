@@ -17,7 +17,7 @@ import java.time.ZonedDateTime;
 
 /**
  * <p>
- * 用户基本信息表 前端控制器
+ * 用户扩展信息表 前端控制器
  * </p>
  *
  * @author huangjiayi

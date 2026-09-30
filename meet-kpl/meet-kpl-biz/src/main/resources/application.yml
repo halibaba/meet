@@ -23,3 +23,7 @@ spring:
 #  mapper-locations: classpath:mapper/*.xml
 #  type-aliases-package: com.meet.entity
 
+meet:
+  gateway:
+    internal-token: 7c1e9a4b6d2f80e35a1c9b7d4e6f2038a5c1d9e7b3f60482c0a6e8d1b5f39274
+

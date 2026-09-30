@@ -1,7 +1,7 @@
 package com.meet.auth.filter;
 
+import com.meet.auth.security.LoginSessionStore;
 import com.meet.auth.security.TokenManager;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,12 +28,12 @@ import java.util.List;
 public class TokenAuthFilter extends BasicAuthenticationFilter {
 
     private TokenManager tokenManager;
-    private RedisTemplate redisTemplate;
+    private LoginSessionStore loginSessionStore;
 
-    public TokenAuthFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, RedisTemplate redisTemplate){
+    public TokenAuthFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, LoginSessionStore loginSessionStore){
         super(authenticationManager);
         this.tokenManager = tokenManager;
-        this.redisTemplate = redisTemplate;
+        this.loginSessionStore = loginSessionStore;
     }
 
     @Override
@@ -57,10 +57,18 @@ public class TokenAuthFilter extends BasicAuthenticationFilter {
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
 
-            String username = tokenManager.getUserInfoFromToken(token);
+            String username;
+            try {
+                username = tokenManager.getUserInfoFromToken(token);
+            } catch (RuntimeException ex) {
+                return null;
+            }
+            if (username == null || username.isEmpty()) {
+                return null;
+            }
 
             // 从 redis 获取对应权限列表
-            List<String> permissionValueList = (List<String>) redisTemplate.opsForValue().get(username);
+            List<String> permissionValueList = loginSessionStore.getPermissions(token);
             if (permissionValueList != null) {
                 Collection<GrantedAuthority> authorities = new ArrayList<>();
                 for (String permissionValue : permissionValueList) {

@@ -20,6 +20,14 @@ spring:
         locator:
           enabled: true #是否开启从注册中心动态创建路由的功能，可调用RouteConfigController中的接口传递参数
       routes:
+        - id: meet-auth
+          uri: lb://meet-auth
+          predicates:
+            - Path=/user/**,/login.html,/logout,/oauth/**
+        - id: meet-message-biz
+          uri: lb://meet-message-biz
+          predicates:
+            - Path=/message/**
         - id: meet-admin-biz    #路由的ID，没有固定规则但要求唯一，建议配合服务名
           uri: lb://meet-admin-biz
           predicates:
@@ -27,10 +35,6 @@ spring:
 #          filters:
 #            - Meet=key   #接口需要加上key=xxx才能使用
 #            - Meet=X-Request-atguigu1,atguiguValue1
-        - id: meet-auth    #路由的ID，没有固定规则但要求唯一，建议配合服务名
-          uri: lb://meet-auth
-          predicates:
-            - Path=/**      #断言，路径相匹配的进行路由
 #        - id: admin_routh    #路由的ID，没有固定规则但要求唯一，建议配合服务名
 #          uri: http://localhost:9001/   #匹配后提供服务的路由地址（负载均衡该服务名下所有的机器）
 #          predicates:
@@ -49,3 +53,7 @@ spring:
 #            - Host=**.atguigu.com #curl http://localhost:9527/payment/lb -H "Host: www.atguigu.com"
 #            - Method=Get #只允许get请求访问  curl http://localhost:9527/payment/lb
 #            - Query=username, \d+  #要有参数名username并且值还要是整数才能路由  curl http://localhost:9527/payment/lb?username=111
+
+meet:
+  gateway:
+    internal-token: 7c1e9a4b6d2f80e35a1c9b7d4e6f2038a5c1d9e7b3f60482c0a6e8d1b5f39274

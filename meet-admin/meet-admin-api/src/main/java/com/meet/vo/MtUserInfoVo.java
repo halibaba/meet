@@ -1,31 +1,49 @@
 package com.meet.vo;
-import com.meet.entity.MtUserInfo;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
- * @author: mt
- * @description: TODO
- * @date: 2022/11/29 10:23 上午
+ * 用户扩展信息。账号、密码、昵称、头像在 acl_user。
  */
 @Data
 public class MtUserInfoVo {
 
+    @ApiModelProperty(value = "主键id")
+    private Integer id;
+
+    @ApiModelProperty(value = "关联acl_user.id")
+    private String userId;
+
     @ApiModelProperty(value = "用户名")
     private String username;
 
-    @ApiModelProperty(value = "密码")
-    private String passwork;
+    @ApiModelProperty(value = "用户姓名")
+    private String name;
 
-    @ApiModelProperty(value = "昵称")
-    private String nickname;
+    @ApiModelProperty(value = "性别")
+    private Integer sex;
 
-    @ApiModelProperty(value = "头像")
-    private String avatar;
+    @ApiModelProperty(value = "电话")
+    private String phone;
 
-    @ApiModelProperty(value = "金币数量")
-    private Integer count;
+    @ApiModelProperty(value = "邮箱")
+    private String email;
 
-    @ApiModelProperty(value = "用户类型")
-    private Integer type;
+    @ApiModelProperty(value = "出生日期")
+    private LocalDateTime birthday;
+
+    @ApiModelProperty(value = "学历")
+    private Integer education;
+
+    @ApiModelProperty(value = "身份证号")
+    private String identity;
+
+    @ApiModelProperty(value = "用户地址")
+    private String addres;
+
+    @ApiModelProperty(value = "状态")
+    private Integer status;
 }

@@ -3,11 +3,12 @@ package com.meet.auth.filter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meet.auth.entity.SecurityUser;
 import com.meet.auth.entity.User;
+import com.meet.auth.security.LoginSessionStore;
 import com.meet.auth.security.TokenManager;
 import com.meet.auth.utils.ResponseUtil;
 import com.meet.pub.entity.R;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -22,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @program: meet-boot
@@ -34,14 +34,13 @@ import java.util.concurrent.TimeUnit;
 public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private TokenManager tokenManager;
-    private RedisTemplate redisTemplate;
+    private LoginSessionStore loginSessionStore;
     private AuthenticationManager authenticationManager;
 
-    public TokenLoginFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, RedisTemplate redisTemplate){
+    public TokenLoginFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, LoginSessionStore loginSessionStore){
         this.authenticationManager = authenticationManager;
         this.tokenManager = tokenManager;
-        this.redisTemplate = redisTemplate;
-        this.setPostOnly(false);
+        this.loginSessionStore = loginSessionStore;
         this.setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/user/login", "POST"));
     }
 
@@ -65,20 +64,12 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (username == null || password == null) {
-            throw new RuntimeException("用户名或密码为空");
+        if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+            throw new BadCredentialsException("用户名或密码为空");
         }
 
-        Authentication auth = authenticationManager.authenticate(
+        return authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(username, password, new ArrayList<>()));
-
-        if (auth != null && auth.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        } else {
-            throw new RuntimeException("Authentication failed");
-        }
-
-        return auth;
     }
 
     //认证成功调用的方法
@@ -91,7 +82,7 @@ public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = tokenManager.createToken(user.getCurrentUserInfo().getUsername());
 
         // 把用户名称和用户权限列表放到 redis
-        redisTemplate.opsForValue().set(user.getCurrentUserInfo().getUsername(), user.getPermissionValueList(), 60, TimeUnit.SECONDS);
+        loginSessionStore.save(token, user.getPermissionValueList());
 
         // 将 token 添加到响应头中
         response.addHeader("Authorization", "Bearer " + token);

@@ -2,49 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.meet.admin.mapper.MtUserInfoMapper">
 
-    <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.meet.entity.MtUserInfo">
-        <id column="ID" property="id" />
-    <result column="DESCRIPTION" property="description" />
-    <result column="IS_DELETED" property="isDeleted" />
-    <result column="CREATE_BY" property="createBy" />
-    <result column="CREATE_DATE" property="createDate" />
-    <result column="LAST_UPDATE_DATE" property="lastUpdateDate" />
-    <result column="LAST_UPDATE_BY" property="lastUpdateBy" />
-        <result column="NAME" property="name" />
-        <result column="SEX" property="sex" />
-        <result column="PHONE" property="phone" />
-        <result column="EMAIL" property="email" />
-        <result column="BIRTHDAY" property="birthday" />
-        <result column="EDUCATION" property="education" />
-        <result column="IDENTITY" property="identity" />
-        <result column="ADDRES" property="addres" />
-        <result column="STATUS" property="status" />
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="description" property="description" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="create_by" property="createBy" />
+        <result column="create_date" property="createDate" />
+        <result column="last_update_date" property="lastUpdateDate" />
+        <result column="last_update_by" property="lastUpdateBy" />
+        <result column="name" property="name" />
+        <result column="sex" property="sex" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="birthday" property="birthday" />
+        <result column="education" property="education" />
+        <result column="identity" property="identity" />
+        <result column="addres" property="addres" />
+        <result column="status" property="status" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        DESCRIPTION,
-        IS_DELETED,
-        CREATE_BY,
-        CREATE_DATE,
-        LAST_UPDATE_DATE,
-        LAST_UPDATE_BY,
-        ID, NAME, SEX, PHONE, EMAIL, BIRTHDAY, EDUCATION, IDENTITY, ADDRES, STATUS
+        a.id, a.user_id, a.description, a.is_deleted, a.create_by, a.create_date,
+        a.last_update_date, a.last_update_by, a.name, a.sex, a.phone, a.email,
+        a.birthday, a.education, a.identity, a.addres, a.status
     </sql>
 
     <select id="queryOne" resultType="com.meet.vo.MtUserInfoVo">
-        SELECT * FROM MT_USER_INFO a
-        LEFT JOIN MT_USER_EXTEND_INFO b ON a.ID = b.USER_INFO_ID
+        SELECT
+        <include refid="Base_Column_List" />,
+        b.username
+        FROM mt_user_info a
+        LEFT JOIN acl_user b ON a.user_id = b.id
         <where>
-            <if test = "dto.username != '' and dto.username != null">
-                b.USERNAME = #{dto.username}
+            <if test="dto.username != null and dto.username != ''">
+                b.username = #{dto.username}
             </if>
         </where>
     </select>
 
     <select id="queryPage" resultType="com.meet.vo.MtUserInfoVo">
-        SELECT * FROM MT_USER_INFO
+        SELECT
+        <include refid="Base_Column_List" />,
+        b.username
+        FROM mt_user_info a
+        LEFT JOIN acl_user b ON a.user_id = b.id
     </select>
 
 </mapper>

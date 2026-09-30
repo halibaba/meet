@@ -2,7 +2,6 @@ package com.meet.auth.security;
 
 import com.meet.auth.utils.MD5;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 
 /**
  * @program: meet-boot
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @author: MT
  * @create: 2024-08-06 21:42
  **/
-@Component
+//@Component
 public class DefaultPasswordEncoder implements PasswordEncoder {
 
     public DefaultPasswordEncoder() {

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
- * 用户基本信息表 Mapper 接口
+ * 用户扩展信息表 Mapper 接口
  * </p>
  *
  * @author huangjiayi

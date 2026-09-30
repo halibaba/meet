@@ -2,7 +2,6 @@ package com.meet.auth.security;
 
 import com.meet.auth.utils.ResponseUtil;
 import com.meet.pub.entity.R;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Component;
@@ -11,38 +10,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @program: meet-boot
- * @ClassName TokenLogoutHandler
- * @description: 退出处理器
- * @author: MT
- * @create: 2024-08-06 22:13
- **/
+ * 退出时按当前 token 删除登录会话。
+ */
 @Component
 public class TokenLogoutHandler implements LogoutHandler {
 
-    private TokenManager tokenManager;
+    private final TokenManager tokenManager;
 
-    private RedisTemplate redisTemplate;
+    private final LoginSessionStore loginSessionStore;
 
-    public TokenLogoutHandler(TokenManager tokenManager, RedisTemplate redisTemplate){
+    public TokenLogoutHandler(TokenManager tokenManager, LoginSessionStore loginSessionStore) {
         this.tokenManager = tokenManager;
-        this.redisTemplate = redisTemplate;
+        this.loginSessionStore = loginSessionStore;
     }
 
     @Override
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
-        //1.从header里面获取token
-
-        //2.token不为空，移除token，从redis删除token
-
-        String token = request.getHeader("token");
-        if(token != null){
-            //移除token
-            tokenManager.removeToken(token);
-            //从token获取用户名
-            String username = tokenManager.getUserInfoFromToken(token);
-
-            redisTemplate.delete(username);
+        String header = request.getHeader("Authorization");
+        if (header != null && header.startsWith("Bearer ")) {
+            String token = header.substring(7);
+            try {
+                tokenManager.getUserInfoFromToken(token);
+                loginSessionStore.delete(token);
+            } catch (RuntimeException ex) {
+                // 无效 token 不需要删除会话
+            }
         }
         ResponseUtil.out(response, R.ok());
     }

@@ -81,7 +81,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         RedisStandaloneConfiguration redisConfig = new RedisStandaloneConfiguration();
         redisConfig.setHostName("localhost");
         redisConfig.setPort(6379);
-        redisConfig.setPassword(RedisPassword.of("123456")); // 设置密码
+        redisConfig.setPassword(RedisPassword.of("123456"));
 
         JedisClientConfiguration.JedisClientConfigurationBuilder jedisClientConfiguration = JedisClientConfiguration.builder();
 

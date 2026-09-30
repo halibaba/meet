@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 /**
  * <p>
- * 用户基本信息表 服务实现类
+ * 用户扩展信息表 服务实现类
  * </p>
  *
  * @author huangjiayi
